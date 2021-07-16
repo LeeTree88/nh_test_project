@@ -10,7 +10,9 @@ class Reg_Feed extends StatefulWidget {
 class _Reg_FeedState extends State<Reg_Feed> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Text('AAAAA'),
+    );
   }
 }
 

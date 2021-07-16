@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:nh_test_project/HexColor/HexColor.dart';
+import 'package:nh_test_project/Reg_Feed.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class MypageTab extends StatefulWidget {
@@ -187,10 +188,13 @@ class _MypageTabState extends State<MypageTab> {
                   ],
                 ),
               ),
+              _my_kind(),
               Expanded(
                 child: TabBarView(
                   children: [
-                    Gallery(), Gallery(), Gallery(),
+                    Gallery(),
+                    Reg_Feed(),
+                    Reg_Feed(),
                     // Gallery(),
                     //     Igtv(),
                     //    Reels(),
