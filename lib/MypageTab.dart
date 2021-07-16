@@ -615,18 +615,6 @@ class _GalleryState extends State<Gallery> {
     print('load more ');
     setState(() {
       imageUrls = [
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
         'https://placeimg.com/640/480/animals',
         'https://placeimg.com/640/480/arch',
         'https://placeimg.com/640/480/nature',
@@ -644,6 +632,18 @@ class _GalleryState extends State<Gallery> {
         'https://placeimg.com/640/480/arch',
         'https://placeimg.com/640/480/nature',
         'https://placeimg.com/640/480/people',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
       ];
     });
   }
@@ -668,14 +668,6 @@ class _GalleryState extends State<Gallery> {
                 'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
                 'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
                 'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
               ];
             });
           },
@@ -693,18 +685,37 @@ class _GalleryState extends State<Gallery> {
 
   Widget _createGridTileWidget(String url) => Builder(
         builder: (context) => GestureDetector(
-            onTap: () {
-              print(imageUrls.indexOf(url));
-            },
-            onLongPress: () {
-              _popupDialog = _createPopupDialog(url);
-              Overlay.of(context)!.insert(_popupDialog);
-            },
-            onLongPressEnd: (details) => _popupDialog.remove(),
-            child: CachedNetworkImage(
-              fit: BoxFit.cover,
-              imageUrl: url,
-            )),
+          onTap: () {
+            print(imageUrls.indexOf(url));
+          },
+          onLongPress: () {
+            _popupDialog = _createPopupDialog(url);
+            Overlay.of(context)!.insert(_popupDialog);
+          },
+          onLongPressEnd: (details) => _popupDialog.remove(),
+          child: CachedNetworkImage(
+            imageUrl: url,
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            placeholder: (context, url) => SizedBox(
+              height: 50,
+              width: 50,
+              child: Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+                ),
+              ),
+            ),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+        ),
       );
 
   OverlayEntry _createPopupDialog(String url) {
