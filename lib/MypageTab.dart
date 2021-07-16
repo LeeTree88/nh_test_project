@@ -143,7 +143,7 @@ class _MypageTabState extends State<MypageTab> {
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            title: Text('FFFFFFFFFFAAAAAA'),
+            title: Text('FFFFFFFFFFAA'),
             expandedHeight: 200,
             backgroundColor: HexColor('#ffffff'),
             //    flexibleSpace: FlexibleSpaceBar(),
