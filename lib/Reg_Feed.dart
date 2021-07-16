@@ -1,7 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nh_test_project/HexColor/HexColor.dart';
-import 'package:sticky_headers/sticky_headers.dart';
 
 class Reg_Feed extends StatefulWidget {
   const Reg_Feed({Key? key}) : super(key: key);
@@ -13,23 +10,10 @@ class Reg_Feed extends StatefulWidget {
 class _Reg_FeedState extends State<Reg_Feed> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text('Coding with curry'),
-            backgroundColor: Colors.deepPurple,
-            expandedHeight: 200,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.network('https://picsum.photos/id/0/50/50',
-                  fit: BoxFit.cover),
-            ),
-          ),
-        ],
-      ),
-    );
+    return Container();
   }
 }
+
 //     return NotificationListener<ScrollNotification>(
 //       onNotification: (ScrollNotification scrollInfo) {
 //         if (scrollInfo.metrics.pixels >=
