@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:nh_test_project/HexColor/HexColor.dart';
 import 'package:nh_test_project/Reg_Feed.dart';
+import 'package:nh_test_project/Reg_My_Feed.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class MypageTab extends StatefulWidget {
@@ -142,7 +143,7 @@ class _MypageTabState extends State<MypageTab> {
   Expanded _profileHeader() {
     return Expanded(
       child: DefaultTabController(
-        length: 3,
+        length: 2,
         child: NestedScrollView(
           headerSliverBuilder: (context, _) {
             return [
@@ -172,17 +173,9 @@ class _MypageTabState extends State<MypageTab> {
                       ),
                     ),
                     Tab(
-                      icon: Image.asset(
-                        'assets/igtv.png',
-                        height: 30,
-                        width: 30,
-                      ),
-                    ),
-                    Tab(
-                      icon: Image.asset(
-                        'assets/reels.png',
-                        height: 25,
-                        width: 25,
+                      icon: Icon(
+                        Icons.calendar_today_outlined,
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -193,8 +186,7 @@ class _MypageTabState extends State<MypageTab> {
                 child: TabBarView(
                   children: [
                     Gallery(),
-                    Reg_Feed(),
-                    Reg_Feed(),
+                    Reg_My_Feed(),
                     // Gallery(),
                     //     Igtv(),
                     //    Reels(),
@@ -381,59 +373,6 @@ class _MypageTabState extends State<MypageTab> {
     );
   }
 
-  // _setTab(bool tableLeft) {
-  //   print(tableLeft);
-  //   setState(() {
-  //     if (tableLeft) {
-  //       this.tabAlign = Alignment.centerLeft;
-  //     } else {
-  //       this.tabAlign = Alignment.centerRight;
-  //     }
-  //   });
-  // }
-  //
-  // Widget _animatedBar() {
-  //   return AnimatedContainer(
-  //     alignment: tabAlign,
-  //     duration: Duration(microseconds: duration),
-  //     curve: Curves.easeInOut,
-  //     color: Colors.transparent,
-  //     height: 1,
-  //     width: _size.width,
-  //     child: Container(
-  //       height: 3,
-  //       width: _size.width / 2,
-  //       color: Colors.red,
-  //     ),
-  //   );
-  // }
-  //
-  // double _gridMargin = 0;
-  //
-  // SliverToBoxAdapter _getImageGrid(BuildContext context) {
-  //   double _myImgGridMargin = _size.width;
-  //
-  //   return SliverToBoxAdapter(
-  //     child: Stack(
-  //       children: <Widget>[
-  //         tabAlign == Alignment.centerLeft
-  //             ? AnimatedContainer(
-  //                 transform: Matrix4.translationValues(_gridMargin, 0, 0),
-  //                 duration: Duration(milliseconds: duration),
-  //                 curve: Curves.linear,
-  //                 child: _imageGrid(),
-  //               )
-  //             : AnimatedContainer(
-  //                 transform: Matrix4.translationValues(_gridMargin, 0, 0),
-  //                 duration: Duration(milliseconds: duration),
-  //                 curve: Curves.linear,
-  //                 child: _imageGrid(),
-  //               ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Container _header() {
     return Container(
       color: Colors.white,
@@ -538,37 +477,12 @@ class _MypageTabState extends State<MypageTab> {
         ],
       ),
     );
-
-    // return NotificationListener<ScrollNotification>(
-    //   onNotification: (ScrollNotification scrollInfo) {
-    //     if (scrollInfo.metrics.pixels >=
-    //         scrollInfo.metrics.maxScrollExtent - 50) {
-    //       print('바닥 도착');
-    //       setState(() {
-    //         onLoading = 1;
-    //       });
-    //     }
-    //     return false;
-    //   },
-    //   child: onLoading == 0
-    //       ? RefreshIndicator(
-    //           onRefresh: _onRefreshData,
-    //           child: _profile(),
-    //         )
-    //       : RefreshIndicator(
-    //           onRefresh: _onMore,
-    //           child: _profile(),
-    //         ),
-    // );
-
-    return RefreshIndicator(
-      onRefresh: _onRefreshData,
-      child: _profile(),
-    );
   }
 }
 
 class Gallery extends StatefulWidget {
+  const Gallery({Key? key}) : super(key: key);
+
   @override
   _GalleryState createState() => _GalleryState();
 }
@@ -688,11 +602,11 @@ class _GalleryState extends State<Gallery> {
           onTap: () {
             print(imageUrls.indexOf(url));
           },
-          onLongPress: () {
-            _popupDialog = _createPopupDialog(url);
-            Overlay.of(context)!.insert(_popupDialog);
-          },
-          onLongPressEnd: (details) => _popupDialog.remove(),
+          // onLongPress: () {
+          //   _popupDialog = _createPopupDialog(url);
+          //   Overlay.of(context)!.insert(_popupDialog);
+          // },
+          //   onLongPressEnd: (details) => _popupDialog.remove(),
           child: CachedNetworkImage(
             imageUrl: url,
             imageBuilder: (context, imageProvider) => Container(

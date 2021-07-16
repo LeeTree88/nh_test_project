@@ -137,19 +137,6 @@ class _Reg_My_FeedState extends State<Reg_My_Feed> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/logo.png',
-                fit: BoxFit.contain,
-                height: 32,
-              ),
-            ],
-          ),
-        ),
         body: Column(
           children: [
             Container(
