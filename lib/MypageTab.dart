@@ -255,36 +255,36 @@ class _MypageTabState extends State<MypageTab> {
     );
   }
 
-  Row _tabIcons() {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Container(
-            color: HexColor('#ff7b4f'),
-            child: IconButton(
-              icon: ImageIcon(AssetImage('assets/grid.png')),
-              onPressed: () => _setTab(true),
-              color: this.tabAlign == Alignment.centerRight
-                  ? Colors.grey[400]
-                  : Colors.white,
-            ),
-          ),
-        ),
-        Expanded(
-          child: Container(
-            color: HexColor('#ff7b4f'),
-            child: IconButton(
-              icon: ImageIcon(AssetImage('assets/saved.png')),
-              onPressed: () => _setTab(false),
-              color: this.tabAlign == Alignment.centerLeft
-                  ? Colors.grey[400]
-                  : Colors.white,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+  // Row _tabIcons() {
+  //   return Row(
+  //     children: <Widget>[
+  //       Expanded(
+  //         child: Container(
+  //           color: HexColor('#ff7b4f'),
+  //           child: IconButton(
+  //             icon: ImageIcon(AssetImage('assets/grid.png')),
+  //             onPressed: () => _setTab(true),
+  //             color: this.tabAlign == Alignment.centerRight
+  //                 ? Colors.grey[400]
+  //                 : Colors.white,
+  //           ),
+  //         ),
+  //       ),
+  //       Expanded(
+  //         child: Container(
+  //           color: HexColor('#ff7b4f'),
+  //           child: IconButton(
+  //             icon: ImageIcon(AssetImage('assets/saved.png')),
+  //             onPressed: () => _setTab(false),
+  //             color: this.tabAlign == Alignment.centerLeft
+  //                 ? Colors.grey[400]
+  //                 : Colors.white,
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _my_kind() {
     return Center(
@@ -381,106 +381,90 @@ class _MypageTabState extends State<MypageTab> {
     );
   }
 
-  _setTab(bool tableLeft) {
-    print(tableLeft);
-    setState(() {
-      if (tableLeft) {
-        this.tabAlign = Alignment.centerLeft;
-      } else {
-        this.tabAlign = Alignment.centerRight;
-      }
-    });
-  }
+  // _setTab(bool tableLeft) {
+  //   print(tableLeft);
+  //   setState(() {
+  //     if (tableLeft) {
+  //       this.tabAlign = Alignment.centerLeft;
+  //     } else {
+  //       this.tabAlign = Alignment.centerRight;
+  //     }
+  //   });
+  // }
+  //
+  // Widget _animatedBar() {
+  //   return AnimatedContainer(
+  //     alignment: tabAlign,
+  //     duration: Duration(microseconds: duration),
+  //     curve: Curves.easeInOut,
+  //     color: Colors.transparent,
+  //     height: 1,
+  //     width: _size.width,
+  //     child: Container(
+  //       height: 3,
+  //       width: _size.width / 2,
+  //       color: Colors.red,
+  //     ),
+  //   );
+  // }
+  //
+  // double _gridMargin = 0;
+  //
+  // SliverToBoxAdapter _getImageGrid(BuildContext context) {
+  //   double _myImgGridMargin = _size.width;
+  //
+  //   return SliverToBoxAdapter(
+  //     child: Stack(
+  //       children: <Widget>[
+  //         tabAlign == Alignment.centerLeft
+  //             ? AnimatedContainer(
+  //                 transform: Matrix4.translationValues(_gridMargin, 0, 0),
+  //                 duration: Duration(milliseconds: duration),
+  //                 curve: Curves.linear,
+  //                 child: _imageGrid(),
+  //               )
+  //             : AnimatedContainer(
+  //                 transform: Matrix4.translationValues(_gridMargin, 0, 0),
+  //                 duration: Duration(milliseconds: duration),
+  //                 curve: Curves.linear,
+  //                 child: _imageGrid(),
+  //               ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget _animatedBar() {
-    return AnimatedContainer(
-      alignment: tabAlign,
-      duration: Duration(microseconds: duration),
-      curve: Curves.easeInOut,
-      color: Colors.transparent,
-      height: 1,
-      width: _size.width,
-      child: Container(
-        height: 3,
-        width: _size.width / 2,
-        color: Colors.red,
-      ),
-    );
-  }
-
-  double _gridMargin = 0;
-
-  SliverToBoxAdapter _getImageGrid(BuildContext context) {
-    double _myImgGridMargin = _size.width;
-
-    return SliverToBoxAdapter(
-      child: Stack(
+  Container _header() {
+    return Container(
+      color: Colors.white,
+      child: Row(
         children: <Widget>[
-          tabAlign == Alignment.centerLeft
-              ? AnimatedContainer(
-                  transform: Matrix4.translationValues(_gridMargin, 0, 0),
-                  duration: Duration(milliseconds: duration),
-                  curve: Curves.linear,
-                  child: _imageGrid(),
-                )
-              : AnimatedContainer(
-                  transform: Matrix4.translationValues(_gridMargin, 0, 0),
-                  duration: Duration(milliseconds: duration),
-                  curve: Curves.linear,
-                  child: _imageGrid(),
-                ),
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(
+                  'https://picsum.photos/id/0/50/50'),
+              radius: 40,
+            ),
+          ),
+          Expanded(
+            child: Table(
+              children: [
+                TableRow(children: [
+                  _getStatusValue('473'),
+                  _getStatusValue('8k'),
+                  _getStatusValue('45k'),
+                ]),
+                TableRow(children: [
+                  _getStatusLabel('게시물'),
+                  _getStatusLabel('팔로워'),
+                  _getStatusLabel('팔로잉'),
+                ])
+              ],
+            ),
+          )
         ],
       ),
-    );
-  }
-
-  GridView _imageGrid() {
-    return GridView.count(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      crossAxisCount: 3,
-      childAspectRatio: 1,
-      children: List.generate(30, (index) => _gridImgItem(index)),
-    );
-  }
-
-  CachedNetworkImage _gridImgItem(int index) {
-    return CachedNetworkImage(
-      fit: BoxFit.cover,
-      imageUrl: tabAlign == Alignment.centerLeft
-          ? "https://picsum.photos/id/2/100/100"
-          : "https://picsum.photos/id/3/100/100",
-    );
-  }
-
-  Row _header() {
-    return Row(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(14),
-          child: CircleAvatar(
-            backgroundImage:
-                CachedNetworkImageProvider('https://picsum.photos/id/0/50/50'),
-            radius: 40,
-          ),
-        ),
-        Expanded(
-          child: Table(
-            children: [
-              TableRow(children: [
-                _getStatusValue('473'),
-                _getStatusValue('8k'),
-                _getStatusValue('45k'),
-              ]),
-              TableRow(children: [
-                _getStatusLabel('게시물'),
-                _getStatusLabel('팔로워'),
-                _getStatusLabel('팔로잉'),
-              ])
-            ],
-          ),
-        )
-      ],
     );
   }
 
@@ -512,30 +496,33 @@ class _MypageTabState extends State<MypageTab> {
         ),
       );
 
-  Row _appBar() {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 14),
-            child: Text(
-              'LeeNamHo',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
+  Container _appBar() {
+    return Container(
+      color: Colors.white,
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 14),
+              child: Text(
+                'LeeNamHo',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
               ),
             ),
           ),
-        ),
-        IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {
-            setState(() {
-              _menuOpenState = !_menuOpenState;
-            });
-          },
-        )
-      ],
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              setState(() {
+                _menuOpenState = !_menuOpenState;
+              });
+            },
+          )
+        ],
+      ),
     );
   }
 
@@ -588,6 +575,23 @@ class Gallery extends StatefulWidget {
 
 class _GalleryState extends State<Gallery> {
   late OverlayEntry _popupDialog;
+  GridView _imageGrid() {
+    return GridView.count(
+      // physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      crossAxisCount: 3,
+      childAspectRatio: 1,
+      children: List.generate(30, (index) => _gridImgItem(index)),
+    );
+  }
+
+  CachedNetworkImage _gridImgItem(int index) {
+    return CachedNetworkImage(
+      fit: BoxFit.cover,
+      imageUrl: "https://picsum.photos/id/3/100/100",
+    );
+  }
+
   List<String> imageUrls = [
     'https://placeimg.com/640/480/animals',
     'https://placeimg.com/640/480/arch',
@@ -607,29 +611,100 @@ class _GalleryState extends State<Gallery> {
     'https://placeimg.com/640/480/nature',
     'https://placeimg.com/640/480/people',
   ];
+  void loadMore() {
+    print('load more ');
+    setState(() {
+      imageUrls = [
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://placeimg.com/640/480/animals',
+        'https://placeimg.com/640/480/arch',
+        'https://placeimg.com/640/480/nature',
+        'https://placeimg.com/640/480/people',
+        'https://placeimg.com/640/480/tech',
+        'https://placeimg.com/640/480/animals',
+        'https://placeimg.com/640/480/arch',
+        'https://placeimg.com/640/480/nature',
+        'https://placeimg.com/640/480/people',
+        'https://placeimg.com/640/480/tech',
+        'https://placeimg.com/640/480/nature',
+        'https://placeimg.com/640/480/people',
+        'https://placeimg.com/640/480/tech',
+        'https://placeimg.com/640/480/animals',
+        'https://placeimg.com/640/480/arch',
+        'https://placeimg.com/640/480/nature',
+        'https://placeimg.com/640/480/people',
+      ];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.count(
-        crossAxisCount: 3,
-        childAspectRatio: 1.0,
-        crossAxisSpacing: 3.3,
-        mainAxisSpacing: 3.3,
-        children: imageUrls.map(_createGridTileWidget).toList(),
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification scrollInfo) {
+          if (scrollInfo.metrics.pixels >=
+              scrollInfo.metrics.maxScrollExtent - 50) {
+            loadMore();
+          }
+          return false;
+        },
+        child: RefreshIndicator(
+          onRefresh: () async {
+            print('onRefresh 함수');
+            setState(() {
+              imageUrls = [
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+              ];
+            });
+          },
+          child: GridView.count(
+            crossAxisCount: 3,
+            childAspectRatio: 1.0,
+            crossAxisSpacing: 3.3,
+            mainAxisSpacing: 3.3,
+            children: imageUrls.map(_createGridTileWidget).toList(),
+          ),
+        ),
       ),
     );
   }
 
   Widget _createGridTileWidget(String url) => Builder(
         builder: (context) => GestureDetector(
-          onLongPress: () {
-            _popupDialog = _createPopupDialog(url);
-            Overlay.of(context)!.insert(_popupDialog);
-          },
-          onLongPressEnd: (details) => _popupDialog.remove(),
-          child: Image.network(url, fit: BoxFit.cover),
-        ),
+            onTap: () {
+              print(imageUrls.indexOf(url));
+            },
+            onLongPress: () {
+              _popupDialog = _createPopupDialog(url);
+              Overlay.of(context)!.insert(_popupDialog);
+            },
+            onLongPressEnd: (details) => _popupDialog.remove(),
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: url,
+            )),
       );
 
   OverlayEntry _createPopupDialog(String url) {
