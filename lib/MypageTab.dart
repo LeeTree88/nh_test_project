@@ -142,41 +142,47 @@ class _MypageTabState extends State<MypageTab> {
     return Expanded(
       child: CustomScrollView(
         slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                _header(),
-                //_tabIcons(),
-                // _animatedBar(),
-                // if (tabAlign == Alignment.centerLeft) _my_kind(),
-                Container(
-                  height: _size.height,
-                  width: _size.width,
-                  child: ListView.builder(
-                    itemCount: 50,
-                    itemBuilder: (context, index) => Container(
-                      child: Text('onLoading : $onLoading'),
-                    ),
-                  ),
-                ),
-                /*
-                StickyHeader(
-                  header: _tabIcons(),
-                  content: Container(
-                    height: _size.height,
-                    width: _size.width,
-                    child: ListView.builder(
-                      itemCount: 100,
-                      itemBuilder: (context, index) => Container(
-                        child: Text('onLoading : $onLoading'),
-                      ),
-                    ),
-                  ),
-                ),*/
-              ],
-            ),
+          SliverAppBar(
+            title: Text('FFFFFFFFFF'),
+            expandedHeight: 200,
+            backgroundColor: HexColor('#ffffff'),
+            //    flexibleSpace: FlexibleSpaceBar(),
           ),
-          //   _getImageGrid(context)
+          // SliverList(
+          //   delegate: SliverChildListDelegate(
+          //     [
+          //       _header(),
+          //       //_tabIcons(),
+          //       // _animatedBar(),
+          //       // if (tabAlign == Alignment.centerLeft) _my_kind(),
+          //       Container(
+          //         height: _size.height,
+          //         width: _size.width,
+          //         child: ListView.builder(
+          //           itemCount: 50,
+          //           itemBuilder: (context, index) => Container(
+          //             child: Text('onLoading : $onLoading'),
+          //           ),
+          //         ),
+          //       ),
+          //       /*
+          //       StickyHeader(
+          //         header: _tabIcons(),
+          //         content: Container(
+          //           height: _size.height,
+          //           width: _size.width,
+          //           child: ListView.builder(
+          //             itemCount: 100,
+          //             itemBuilder: (context, index) => Container(
+          //               child: Text('onLoading : $onLoading'),
+          //             ),
+          //           ),
+          //         ),
+          //       ),*/
+          //     ],
+          //   ),
+          // ),
+          _getImageGrid(context)
         ],
       ),
     );
@@ -470,14 +476,14 @@ class _MypageTabState extends State<MypageTab> {
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
     menuWidth = _size.width / 1.5;
-    // return Scaffold(
-    //   body: Stack(
-    //     children: <Widget>[
-    //       _rightSideMenu(),
-    //       _profile(),
-    //     ],
-    //   ),
-    // );
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          _rightSideMenu(),
+          _profile(),
+        ],
+      ),
+    );
 
     // return NotificationListener<ScrollNotification>(
     //   onNotification: (ScrollNotification scrollInfo) {
