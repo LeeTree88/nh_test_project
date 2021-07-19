@@ -63,8 +63,8 @@ class _Reg_My_FeedState extends State<Reg_My_Feed> {
   );
 
   Widget get_calendar(double height) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
+    return Expanded(
+      //   margin: EdgeInsets.symmetric(horizontal: 16.0),
       child: CalendarCarousel<Event>(
         onDayPressed: (DateTime date, List<Event> events) {
           this.setState(() => _currentDate = date);

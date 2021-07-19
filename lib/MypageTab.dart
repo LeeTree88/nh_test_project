@@ -14,7 +14,8 @@ class MypageTab extends StatefulWidget {
   _MypageTabState createState() => _MypageTabState();
 }
 
-class _MypageTabState extends State<MypageTab> {
+class _MypageTabState extends State<MypageTab>
+    with SingleTickerProviderStateMixin {
   bool _menuOpenState = false;
   late Size _size;
   late double menuWidth;
@@ -22,73 +23,7 @@ class _MypageTabState extends State<MypageTab> {
   Color btn_color = Colors.white;
   AlignmentGeometry tabAlign = Alignment.centerLeft;
   late int onLoading = 0;
-
-  Future<void> _onRefreshData() async {
-    print('on _onRefreshData data start');
-    setState(() {
-      onLoading = 0;
-    });
-  }
-
-  Future<void> _onMore() async {
-    print('on _onMore start');
-  }
-
-  // Scaffold buildListView() {
-  //   if (onLoading == 0) {
-  //     return Scaffold(
-  //       body: SafeArea(
-  //         child: CustomScrollView(
-  //           slivers: [
-  //             SliverList(
-  //               delegate: SliverChildListDelegate(
-  //                 [
-  //                   _header(),
-  //                   //_tabIcons(),
-  //                   Container(
-  //                     height: _size.height,
-  //                     width: _size.width,
-  //                     child: StickyHeader(
-  //                       overlapHeaders: true,
-  //                       header: _tabIcons(),
-  //                       content: ListView.builder(
-  //                         itemCount: 100,
-  //                         itemBuilder: (context, index) => Container(
-  //                           child: Text('onLoading : $onLoading'),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   // Container(
-  //                   //   height: 500,
-  //                   //   child: StickyHeader(
-  //                   //     header: _tabIcons(),
-  //                   //     content: ListView.builder(
-  //                   //       itemCount: 50,
-  //                   //       itemBuilder: (context, index) => Container(
-  //                   //         child: Text('onLoading : $onLoading'),
-  //                   //       ),
-  //                   //     ),
-  //                   //   ),
-  //                   // ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     );
-  //   } else {
-  //     return Scaffold(
-  //       body: ListView.builder(
-  //         itemCount: 200,
-  //         itemBuilder: (context, index) => Container(
-  //           child: Text('onLoading 더 불러오기: $onLoading'),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  // }
+  int _tabState = 0;
 
   Widget _rightSideMenu() {
     return AnimatedContainer(
@@ -140,11 +75,32 @@ class _MypageTabState extends State<MypageTab> {
     );
   }
 
+  ScrollController _scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+
+    // _scrollController.addListener(_handleScrolling);
+  }
+  //
+  // void _handleScrolling() {
+  //   print('scrolling handle');
+  //   var isEnd = (_scrollController.offset >=
+  //           _scrollController.position.maxScrollExtent) &&
+  //       !_scrollController.position.outOfRange &&
+  //       (_scrollController.position.axisDirection == AxisDirection.down);
+  //
+  //   debugPrint("---------------- $isEnd");
+  //
+  //   if (isEnd) {}
+  // }
+
   Expanded _profileHeader() {
     return Expanded(
       child: DefaultTabController(
         length: 2,
         child: NestedScrollView(
+          controller: _scrollController,
           headerSliverBuilder: (context, _) {
             return [
               SliverList(
@@ -160,33 +116,43 @@ class _MypageTabState extends State<MypageTab> {
             children: <Widget>[
               Material(
                 color: Colors.white,
-                child: TabBar(
-                  labelColor: Colors.black,
-                  unselectedLabelColor: Colors.grey[400],
-                  indicatorWeight: 1,
-                  indicatorColor: Colors.black,
-                  tabs: [
-                    Tab(
-                      icon: Icon(
-                        Icons.grid_on_sharp,
-                        color: Colors.black,
-                      ),
+                child: Column(
+                  children: [
+                    TabBar(
+                      labelColor: Colors.black,
+                      unselectedLabelColor: Colors.grey[400],
+                      indicatorWeight: 1,
+                      indicatorColor: Colors.black,
+                      onTap: (index) {
+                        print('index : $index');
+                        setState(() {
+                          _tabState = index;
+                        });
+                      },
+                      tabs: [
+                        Tab(
+                          icon: Icon(
+                            Icons.grid_on_sharp,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Tab(
+                          icon: Icon(
+                            Icons.calendar_today_outlined,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
-                    Tab(
-                      icon: Icon(
-                        Icons.calendar_today_outlined,
-                        color: Colors.black,
-                      ),
-                    ),
+                    _my_kind(),
                   ],
                 ),
               ),
-              _my_kind(),
               Expanded(
                 child: TabBarView(
                   children: [
                     Gallery(),
-                    Reg_My_Feed(),
+                    my_Gallery(),
                     // Gallery(),
                     //     Igtv(),
                     //    Reels(),
@@ -197,180 +163,117 @@ class _MypageTabState extends State<MypageTab> {
           ),
         ),
       ),
-      // CustomScrollView(
-      //   slivers: <Widget>[
-      //     SliverAppBar(
-      //       title: Text('FFFFFFFFFF'),
-      //       expandedHeight: 200,
-      //       backgroundColor: HexColor('#ffffff'),
-      //
-      //       //    flexibleSpace: FlexibleSpaceBar(),
-      //     ),
-      //     // SliverGrid(delegate: delegate, gridDelegate: gridDelegate)
-      //     // SliverList(
-      //     //   delegate: SliverChildListDelegate(
-      //     //     [
-      //     //       _header(),
-      //     //       //_tabIcons(),
-      //     //       // _animatedBar(),
-      //     //       // if (tabAlign == Alignment.centerLeft) _my_kind(),
-      //     //       Container(
-      //     //         height: _size.height,
-      //     //         width: _size.width,
-      //     //         child: ListView.builder(
-      //     //           itemCount: 50,
-      //     //           itemBuilder: (context, index) => Container(
-      //     //             child: Text('onLoading : $onLoading'),
-      //     //           ),
-      //     //         ),
-      //     //       ),
-      //     //       /*
-      //     //       StickyHeader(
-      //     //         header: _tabIcons(),
-      //     //         content: Container(
-      //     //           height: _size.height,
-      //     //           width: _size.width,
-      //     //           child: ListView.builder(
-      //     //             itemCount: 100,
-      //     //             itemBuilder: (context, index) => Container(
-      //     //               child: Text('onLoading : $onLoading'),
-      //     //             ),
-      //     //           ),
-      //     //         ),
-      //     //       ),*/
-      //     //     ],
-      //     //   ),
-      //     // ),
-      //     //   _getImageGrid(context)
-      //   ],
-      // ),
     );
   }
 
-  // Row _tabIcons() {
-  //   return Row(
-  //     children: <Widget>[
-  //       Expanded(
-  //         child: Container(
-  //           color: HexColor('#ff7b4f'),
-  //           child: IconButton(
-  //             icon: ImageIcon(AssetImage('assets/grid.png')),
-  //             onPressed: () => _setTab(true),
-  //             color: this.tabAlign == Alignment.centerRight
-  //                 ? Colors.grey[400]
-  //                 : Colors.white,
-  //           ),
-  //         ),
-  //       ),
-  //       Expanded(
-  //         child: Container(
-  //           color: HexColor('#ff7b4f'),
-  //           child: IconButton(
-  //             icon: ImageIcon(AssetImage('assets/saved.png')),
-  //             onPressed: () => _setTab(false),
-  //             color: this.tabAlign == Alignment.centerLeft
-  //                 ? Colors.grey[400]
-  //                 : Colors.white,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget _my_kind() {
-    return Center(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            Container(
-              padding: EdgeInsets.only(right: 10),
-              child: OutlinedButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.black,
-                  backgroundColor: btn_color,
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                  ),
+    return SingleChildScrollView(
+      //scrollDirection: Axis.horizontal,
+      child: Row(
+        //    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            // padding: EdgeInsets.only(right: 10),
+            child: OutlinedButton(
+              style: TextButton.styleFrom(
+                primary: Colors.black,
+                backgroundColor: btn_color,
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0),
                 ),
-                onPressed: () {
-                  setState(() {
-                    if (btn_color != Colors.red)
-                      btn_color = Colors.red;
-                    else
-                      btn_color = Colors.white;
-                  });
-                },
-                child: Text('아침'),
+              ),
+              onPressed: () {
+                setState(() {
+                  if (btn_color != Colors.red)
+                    btn_color = Colors.red;
+                  else
+                    btn_color = Colors.white;
+                });
+              },
+              child: Text('아침'),
+            ),
+          ),
+          Expanded(
+            // padding: EdgeInsets.only(right: 10),
+            child: OutlinedButton(
+              style: TextButton.styleFrom(
+                primary: Colors.black,
+                backgroundColor: btn_color,
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0),
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  if (btn_color != Colors.red)
+                    btn_color = Colors.red;
+                  else
+                    btn_color = Colors.white;
+                });
+              },
+              child: Text('점심'),
+            ),
+          ),
+          Expanded(
+            //padding: EdgeInsets.only(right: 10),
+            child: OutlinedButton(
+              style: TextButton.styleFrom(
+                primary: Colors.black,
+                backgroundColor: btn_color,
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0),
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  if (btn_color != Colors.red)
+                    btn_color = Colors.red;
+                  else
+                    btn_color = Colors.white;
+                });
+              },
+              child: Text('저녁'),
+            ),
+          ),
+          Expanded(
+            //padding: EdgeInsets.only(right: 10),
+            child: OutlinedButton(
+              style: TextButton.styleFrom(
+                primary: Colors.black,
+                backgroundColor: btn_color,
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0),
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  if (btn_color != Colors.red)
+                    btn_color = Colors.red;
+                  else
+                    btn_color = Colors.white;
+                });
+              },
+              child: Text('간식'),
+            ),
+          ),
+          Expanded(
+            child: InkWell(
+              child: Icon(
+                Icons.calendar_today_outlined,
+                color: Colors.black,
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(right: 10),
-              child: OutlinedButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.black,
-                  backgroundColor: btn_color,
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    if (btn_color != Colors.red)
-                      btn_color = Colors.red;
-                    else
-                      btn_color = Colors.white;
-                  });
-                },
-                child: Text('점심'),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(right: 10),
-              child: OutlinedButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.black,
-                  backgroundColor: btn_color,
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    if (btn_color != Colors.red)
-                      btn_color = Colors.red;
-                    else
-                      btn_color = Colors.white;
-                  });
-                },
-                child: Text('저녁'),
-              ),
-            ),
-            Container(
-              child: OutlinedButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.black,
-                  backgroundColor: btn_color,
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                  ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    if (btn_color != Colors.red)
-                      btn_color = Colors.red;
-                    else
-                      btn_color = Colors.white;
-                  });
-                },
-                child: Text('간식'),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
+  }
+
+  void _get_my_feed() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 280), curve: Curves.decelerate);
+    // _scrollController
+    //     .jumpTo(_scrollController.position.maxScrollExtent);
   }
 
   Container _header() {
@@ -389,16 +292,26 @@ class _MypageTabState extends State<MypageTab> {
           Expanded(
             child: Table(
               children: [
-                TableRow(children: [
-                  _getStatusValue('473'),
-                  _getStatusValue('8k'),
-                  _getStatusValue('45k'),
-                ]),
-                TableRow(children: [
-                  _getStatusLabel('게시물'),
-                  _getStatusLabel('팔로워'),
-                  _getStatusLabel('팔로잉'),
-                ])
+                TableRow(
+                  children: [
+                    GestureDetector(
+                      child: _getStatusValue('473'),
+                      onTap: () => _get_my_feed(),
+                    ),
+                    _getStatusValue('8,000'),
+                    _getStatusValue('4.5만'),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    GestureDetector(
+                      child: _getStatusLabel('게시물'),
+                      onTap: () => _get_my_feed(),
+                    ),
+                    _getStatusLabel('팔로워'),
+                    _getStatusLabel('팔로잉'),
+                  ],
+                ),
               ],
             ),
           )
@@ -601,12 +514,215 @@ class _GalleryState extends State<Gallery> {
         builder: (context) => GestureDetector(
           onTap: () {
             print(imageUrls.indexOf(url));
+            print(url);
           },
-          // onLongPress: () {
-          //   _popupDialog = _createPopupDialog(url);
-          //   Overlay.of(context)!.insert(_popupDialog);
-          // },
-          //   onLongPressEnd: (details) => _popupDialog.remove(),
+          child: CachedNetworkImage(
+            imageUrl: url,
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            placeholder: (context, url) => SizedBox(
+              height: 50,
+              width: 50,
+              child: Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+                ),
+              ),
+            ),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+        ),
+      );
+
+  // OverlayEntry _createPopupDialog(String url) {
+  //   return OverlayEntry(
+  //     builder: (context) => AnimatedDialog(
+  //       child: _createPopupContent(url),
+  //     ),
+  //   );
+  // }
+
+  // Widget _createPhotoTitle() => Container(
+  //     width: double.infinity,
+  //     color: Colors.white,
+  //     child: ListTile(
+  //       leading: CircleAvatar(
+  //         backgroundImage: NetworkImage('https://placeimg.com/640/480/people'),
+  //       ),
+  //       title: Text(
+  //         'john.doe',
+  //         style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+  //       ),
+  //     ));
+  //
+  // Widget _createActionBar() => Container(
+  //       padding: EdgeInsets.symmetric(vertical: 10.0),
+  //       color: Colors.white,
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //         children: [
+  //           Icon(
+  //             Icons.favorite_border,
+  //             color: Colors.black,
+  //           ),
+  //           Icon(
+  //             Icons.chat_bubble_outline_outlined,
+  //             color: Colors.black,
+  //           ),
+  //           Icon(
+  //             Icons.send,
+  //             color: Colors.black,
+  //           ),
+  //         ],
+  //       ),
+  //     );
+  //
+  // Widget _createPopupContent(String url) => Container(
+  //       padding: EdgeInsets.symmetric(horizontal: 16.0),
+  //       child: ClipRRect(
+  //         borderRadius: BorderRadius.circular(16.0),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             _createPhotoTitle(),
+  //             Image.network(url, fit: BoxFit.fitWidth),
+  //             _createActionBar(),
+  //           ],
+  //         ),
+  //       ),
+  //     );
+}
+
+class my_Gallery extends StatefulWidget {
+  const my_Gallery({Key? key}) : super(key: key);
+
+  @override
+  _my_GalleryState createState() => _my_GalleryState();
+}
+
+class _my_GalleryState extends State<my_Gallery> {
+  late OverlayEntry _popupDialog;
+  GridView _imageGrid() {
+    return GridView.count(
+      // physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      crossAxisCount: 3,
+      childAspectRatio: 1,
+      children: List.generate(30, (index) => _gridImgItem(index)),
+    );
+  }
+
+  CachedNetworkImage _gridImgItem(int index) {
+    return CachedNetworkImage(
+      fit: BoxFit.cover,
+      imageUrl: "https://picsum.photos/id/3/100/100",
+    );
+  }
+
+  List<String> imageUrls = [
+    'https://placeimg.com/640/480/animals',
+    'https://placeimg.com/640/480/arch',
+    'https://placeimg.com/640/480/nature',
+    'https://placeimg.com/640/480/people',
+    'https://placeimg.com/640/480/tech',
+    'https://placeimg.com/640/480/animals',
+    'https://placeimg.com/640/480/arch',
+    'https://placeimg.com/640/480/nature',
+    'https://placeimg.com/640/480/people',
+    'https://placeimg.com/640/480/tech',
+    'https://placeimg.com/640/480/nature',
+    'https://placeimg.com/640/480/people',
+    'https://placeimg.com/640/480/tech',
+    'https://placeimg.com/640/480/animals',
+    'https://placeimg.com/640/480/arch',
+    'https://placeimg.com/640/480/nature',
+    'https://placeimg.com/640/480/people',
+  ];
+  void loadMore() {
+    print('load more ');
+    setState(() {
+      imageUrls = [
+        'https://placeimg.com/640/480/animals',
+        'https://placeimg.com/640/480/arch',
+        'https://placeimg.com/640/480/nature',
+        'https://placeimg.com/640/480/people',
+        'https://placeimg.com/640/480/tech',
+        'https://placeimg.com/640/480/animals',
+        'https://placeimg.com/640/480/arch',
+        'https://placeimg.com/640/480/nature',
+        'https://placeimg.com/640/480/people',
+        'https://placeimg.com/640/480/tech',
+        'https://placeimg.com/640/480/nature',
+        'https://placeimg.com/640/480/people',
+        'https://placeimg.com/640/480/tech',
+        'https://placeimg.com/640/480/animals',
+        'https://placeimg.com/640/480/arch',
+        'https://placeimg.com/640/480/nature',
+        'https://placeimg.com/640/480/people',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+        'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+      ];
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification scrollInfo) {
+          if (scrollInfo.metrics.pixels >=
+              scrollInfo.metrics.maxScrollExtent - 50) {
+            loadMore();
+          }
+          return false;
+        },
+        child: RefreshIndicator(
+          onRefresh: () async {
+            print('onRefresh 함수');
+            setState(() {
+              imageUrls = [
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+                'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
+              ];
+            });
+          },
+          child: GridView.count(
+            crossAxisCount: 3,
+            childAspectRatio: 1.0,
+            crossAxisSpacing: 3.3,
+            mainAxisSpacing: 3.3,
+            children: imageUrls.map(_createGridTileWidget).toList(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _createGridTileWidget(String url) => Builder(
+        builder: (context) => GestureDetector(
+          onTap: () {
+            print(imageUrls.indexOf(url));
+            print(url);
+          },
           child: CachedNetworkImage(
             imageUrl: url,
             imageBuilder: (context, imageProvider) => Container(
