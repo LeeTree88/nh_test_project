@@ -64,7 +64,7 @@ class _my_calendarState extends State<my_calendar> {
                 enablePullUp: true,
                 header: WaterDropMaterialHeader(),
                 footer: CustomFooter(
-                  builder: (BuildContext context, LoadStatus status) {
+                  builder: (BuildContext context, LoadStatus? status) {
                     Widget body;
                     if (status == LoadStatus.idle) {
                       body = Text("");

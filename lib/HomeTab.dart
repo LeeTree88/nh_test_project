@@ -211,7 +211,7 @@ class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
             enablePullUp: true,
             header: WaterDropMaterialHeader(),
             footer: CustomFooter(
-              builder: (BuildContext context, LoadStatus status) {
+              builder: (BuildContext context, LoadStatus? status) {
                 Widget body;
                 if (status == LoadStatus.idle) {
                   body = Text("");
