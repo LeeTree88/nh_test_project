@@ -1,16 +1,6 @@
 # nh_test_project
+플러터 2.0 이상 버전이어야 하고
 
-nh_test_project
+null safety 는 ?를 쓰거나 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+안드로이드 스튜디오의 [Run] => [Edit Configurations..]에서 Additional run args 항목에 "--no-sound-null-safety" 추가 해야 함
