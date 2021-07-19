@@ -95,27 +95,27 @@ class _Reg_My_FeedState extends State<Reg_My_Feed> {
 
           // Example: every 15th of month, we have a flight, we can place an icon in the container like that:
 
-          // if (day.day == 15) {
-          //   return Center(
-          //     child: Icon(Icons.home),
-          //   );
-          // } else {
-          //   return null;
-          // }
+          if (day.day == 15) {
+            return Center(
+              child: Icon(Icons.home),
+            );
+          } else {
+            return null;
+          }
         },
 
         //markedDateShowIcon: false,
         showIconBehindDayText: true,
-        markedDateIconBuilder: (event) {
-          return event.icon;
-        },
+        // markedDateIconBuilder: (event) {
+        //   return event.icon;
+        // },
         daysTextStyle: TextStyle(color: Colors.blue),
         selectedDayButtonColor: Colors.white,
         selectedDayBorderColor: HexColor('#ff7b4f'),
         daysHaveCircularBorder: true,
         weekFormat: false,
         markedDatesMap: _markedDateMap,
-        height: height * 0.55,
+        // height: height * 0.55,
         selectedDateTime: _currentDate,
         locale: 'ko',
 

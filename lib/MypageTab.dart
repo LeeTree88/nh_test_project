@@ -20,7 +20,10 @@ class _MypageTabState extends State<MypageTab>
   late Size _size;
   late double menuWidth;
   int duration = 200;
-  Color btn_color = Colors.white;
+  Color morning_btn_color = Colors.white;
+  Color lunch_btn_color = Colors.white;
+  Color evening_btn_color = Colors.white;
+  Color snack_btn_color = Colors.white;
   AlignmentGeometry tabAlign = Alignment.centerLeft;
   late int onLoading = 0;
   int _tabState = 0;
@@ -162,23 +165,25 @@ class _MypageTabState extends State<MypageTab>
         children: [
           Expanded(
             // padding: EdgeInsets.only(right: 10),
-            child: OutlinedButton(
-              style: TextButton.styleFrom(
-                primary: Colors.black,
-                backgroundColor: btn_color,
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
+            child: GestureDetector(
+              child: OutlinedButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.black,
+                  backgroundColor: morning_btn_color,
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0),
+                  ),
                 ),
+                onPressed: () {
+                  setState(() {
+                    if (morning_btn_color != Colors.red)
+                      morning_btn_color = Colors.red;
+                    else
+                      morning_btn_color = Colors.white;
+                  });
+                },
+                child: Text('아침'),
               ),
-              onPressed: () {
-                setState(() {
-                  if (btn_color != Colors.red)
-                    btn_color = Colors.red;
-                  else
-                    btn_color = Colors.white;
-                });
-              },
-              child: Text('아침'),
             ),
           ),
           Expanded(
@@ -186,17 +191,17 @@ class _MypageTabState extends State<MypageTab>
             child: OutlinedButton(
               style: TextButton.styleFrom(
                 primary: Colors.black,
-                backgroundColor: btn_color,
+                backgroundColor: lunch_btn_color,
                 shape: new RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(30.0),
                 ),
               ),
               onPressed: () {
                 setState(() {
-                  if (btn_color != Colors.red)
-                    btn_color = Colors.red;
+                  if (lunch_btn_color != Colors.red)
+                    lunch_btn_color = Colors.red;
                   else
-                    btn_color = Colors.white;
+                    lunch_btn_color = Colors.white;
                 });
               },
               child: Text('점심'),
@@ -207,17 +212,17 @@ class _MypageTabState extends State<MypageTab>
             child: OutlinedButton(
               style: TextButton.styleFrom(
                 primary: Colors.black,
-                backgroundColor: btn_color,
+                backgroundColor: evening_btn_color,
                 shape: new RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(30.0),
                 ),
               ),
               onPressed: () {
                 setState(() {
-                  if (btn_color != Colors.red)
-                    btn_color = Colors.red;
+                  if (evening_btn_color != Colors.red)
+                    evening_btn_color = Colors.red;
                   else
-                    btn_color = Colors.white;
+                    evening_btn_color = Colors.white;
                 });
               },
               child: Text('저녁'),
@@ -228,27 +233,36 @@ class _MypageTabState extends State<MypageTab>
             child: OutlinedButton(
               style: TextButton.styleFrom(
                 primary: Colors.black,
-                backgroundColor: btn_color,
+                backgroundColor: snack_btn_color,
                 shape: new RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(30.0),
                 ),
               ),
               onPressed: () {
                 setState(() {
-                  if (btn_color != Colors.red)
-                    btn_color = Colors.red;
+                  if (snack_btn_color != Colors.red)
+                    snack_btn_color = Colors.red;
                   else
-                    btn_color = Colors.white;
+                    snack_btn_color = Colors.white;
                 });
               },
               child: Text('간식'),
             ),
           ),
           Expanded(
-            child: InkWell(
-              child: Icon(
-                Icons.calendar_today_outlined,
-                color: Colors.black,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => Reg_My_Feed(),
+                  ),
+                );
+              },
+              child: InkWell(
+                child: Icon(
+                  Icons.calendar_today_outlined,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),

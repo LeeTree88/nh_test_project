@@ -45,6 +45,23 @@ class _homeState extends State<home> {
     );
   }
 
+  AppBar _my_appbar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('LOGO'),
+          // Image.asset(
+          //   'assets/logo.png',
+          //   fit: BoxFit.contain,
+          //   height: 32,
+          // ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -52,20 +69,7 @@ class _homeState extends State<home> {
         primarySwatch: Colors.orange,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('LOGO'),
-              // Image.asset(
-              //   'assets/logo.png',
-              //   fit: BoxFit.contain,
-              //   height: 32,
-              // ),
-            ],
-          ),
-        ),
+        appBar: _selectedIndex != 3 ? _my_appbar() : null,
         body: IndexedStack(index: _selectedIndex, children: _widgetOptions),
         bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,

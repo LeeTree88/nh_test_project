@@ -119,6 +119,7 @@ class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
           ],
           onPageChanged: (value) {
             print('Page changed: $value');
+            print('homeTab index = $index');
           },
           // autoPlayInterval: 3000,
         ),
