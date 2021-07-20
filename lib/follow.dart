@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:nh_test_project/HexColor/HexColor.dart';
 
 class Follow extends StatelessWidget {
-  const Follow({Key? key}) : super(key: key);
+  final int index;
+  const Follow({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final List<String> users = List.generate(10, (i) => 'user $i');
+    TabController tabController;
+
     return MaterialApp(
       home: Scaffold(
         body: Column(
@@ -42,10 +48,9 @@ class Follow extends StatelessWidget {
                         Expanded(
                           flex: 3,
                           //  margin: EdgeInsets.only(top: 37),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
+                          child: Center(
                             child: Text(
-                              '팔로워',
+                              'NickName',
                               style: TextStyle(
                                   fontSize: 22,
                                   fontFamily: 'NanumSquareOTFB',
@@ -64,17 +69,67 @@ class Follow extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return _item(index);
-                },
-                itemCount: 10,
-                separatorBuilder: (context, index) {
-                  return Divider(
-                    thickness: 1,
-                    color: Colors.grey[300],
-                  );
-                },
+              child: DefaultTabController(
+                initialIndex: index,
+                length: 2,
+                child: Column(
+                  children: [
+                    Material(
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          TabBar(
+                            labelColor: Colors.black,
+                            unselectedLabelColor: Colors.grey[400],
+                            indicatorWeight: 1,
+                            indicatorColor: Colors.black,
+                            onTap: (index) {
+                              print('index : $index');
+                            },
+                            tabs: [
+                              Tab(
+                                icon: Text('팔로워'),
+                              ),
+                              Tab(
+                                icon: Text('팔로잉'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          ListView.separated(
+                            itemBuilder: (context, index) {
+                              return _item(index);
+                            },
+                            itemCount: 5,
+                            separatorBuilder: (context, index) {
+                              return Divider(
+                                thickness: 1,
+                                color: Colors.grey[300],
+                              );
+                            },
+                          ),
+                          ListView.separated(
+                            itemBuilder: (context, index) {
+                              return _item(index);
+                            },
+                            itemCount: 10,
+                            separatorBuilder: (context, index) {
+                              return Divider(
+                                thickness: 1,
+                                color: Colors.grey[300],
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

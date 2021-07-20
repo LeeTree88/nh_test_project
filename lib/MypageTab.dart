@@ -97,7 +97,7 @@ class _MypageTabState extends State<MypageTab>
   Expanded _profileHeader() {
     return Expanded(
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: NestedScrollView(
           controller: _scrollController,
           headerSliverBuilder: (context, _) {
@@ -143,9 +143,15 @@ class _MypageTabState extends State<MypageTab>
                             color: Colors.black,
                           ),
                         ),
+                        Tab(
+                          icon: Icon(
+                            Icons.bookmark_outline,
+                            color: Colors.black,
+                          ),
+                        ),
                       ],
                     ),
-                    _tabState == 1 ? _my_kind() : Container(),
+                    _tabState != 0 ? _my_kind() : Container(),
                   ],
                 ),
               ),
@@ -153,6 +159,7 @@ class _MypageTabState extends State<MypageTab>
                 child: TabBarView(
                   children: [
                     Gallery(),
+                    my_Gallery(),
                     my_Gallery(),
                     // Gallery(),
                     //     Igtv(),
@@ -290,60 +297,139 @@ class _MypageTabState extends State<MypageTab>
 
   Container _header() {
     return Container(
+      padding: EdgeInsets.only(right: 10, left: 10, top: 10, bottom: 10),
       color: Colors.white,
       child: Row(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(14),
-            child: CircleAvatar(
-              backgroundImage: CachedNetworkImageProvider(
-                  'https://picsum.photos/id/0/50/50'),
-              radius: 40,
-            ),
-          ),
           Expanded(
-            child: Table(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TableRow(
-                  children: [
-                    GestureDetector(
-                      child: _getStatusValue('473'),
-                      onTap: () => _get_my_feed(),
-                    ),
-                    GestureDetector(
-                      child: _getStatusValue('8,000'),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => Follow(),
+                Container(
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: CachedNetworkImageProvider(
+                            'https://picsum.photos/id/0/50/50'),
+                        radius: 40,
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: () {
+                            print('마이페이지 프로필 설정 버튼 클릭');
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/picture.png'),
+                                  fit: BoxFit.cover),
+                            ),
                           ),
-                        );
-                      },
-                    ),
-                    _getStatusValue('4.5만'),
-                  ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                TableRow(
-                  children: [
-                    GestureDetector(
-                      child: _getStatusLabel('게시물'),
-                      onTap: () => _get_my_feed(),
+                GestureDetector(
+                  onTap: () => _get_my_feed(),
+                  child: Container(
+                    child: Center(
+                      child: Column(
+                        children: [
+                          _getStatusValue('473'),
+                          _getStatusLabel('게시물'),
+                        ],
+                      ),
                     ),
-                    GestureDetector(
-                      child: _getStatusLabel('팔로워'),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => Follow(),
-                          ),
-                        );
-                      },
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => Follow(index: 0),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          _getStatusValue('8,000'),
+                          _getStatusLabel('팔로워'),
+                        ],
+                      ),
                     ),
-                    _getStatusLabel('팔로잉'),
-                  ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => Follow(index: 1),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    child: Center(
+                      child: Column(
+                        children: [
+                          _getStatusValue('4.5만'),
+                          _getStatusLabel('팔로잉'),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
+            // child: Table(
+            //   children: [
+            //     TableRow(
+            //       children: [
+            //         GestureDetector(
+            //           child: _getStatusValue('473'),
+            //           onTap: () => _get_my_feed(),
+            //         ),
+            //         GestureDetector(
+            //           child: _getStatusValue('8,000'),
+            //           onTap: () {
+            //             Navigator.of(context).push(
+            //               MaterialPageRoute(
+            //                 builder: (BuildContext context) => Follow(),
+            //               ),
+            //             );
+            //           },
+            //         ),
+            //         _getStatusValue('4.5만'),
+            //       ],
+            //     ),
+            //     TableRow(
+            //       children: [
+            //         GestureDetector(
+            //           child: _getStatusLabel('게시물'),
+            //           onTap: () => _get_my_feed(),
+            //         ),
+            //         GestureDetector(
+            //           child: _getStatusLabel('팔로워'),
+            //           onTap: () {
+            //             Navigator.of(context).push(
+            //               MaterialPageRoute(
+            //                 builder: (BuildContext context) => Follow(),
+            //               ),
+            //             );
+            //           },
+            //         ),
+            //         _getStatusLabel('팔로잉'),
+            //       ],
+            //     ),
+            //   ],
+            // ),
           )
         ],
       ),
@@ -354,9 +440,9 @@ class _MypageTabState extends State<MypageTab>
     return Container(
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.only(left: 14),
+        padding: const EdgeInsets.only(left: 10, top: 10, bottom: 5),
         child: Text(
-          'userName',
+          '이남호',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -367,9 +453,9 @@ class _MypageTabState extends State<MypageTab>
     return Container(
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.only(left: 14),
+        padding: const EdgeInsets.only(left: 10, bottom: 10),
         child: Text(
-          '인스타그램 프로필 만드는중!!',
+          '마이비 어플리케이션 프로필 만드는중!!',
           style: TextStyle(fontWeight: FontWeight.w400),
         ),
       ),
@@ -411,9 +497,9 @@ class _MypageTabState extends State<MypageTab>
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 14),
+              padding: const EdgeInsets.only(left: 10),
               child: Text(
-                'NickName',
+                'LeeTree',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
@@ -421,13 +507,16 @@ class _MypageTabState extends State<MypageTab>
               ),
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              setState(() {
-                _menuOpenState = !_menuOpenState;
-              });
-            },
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                setState(() {
+                  _menuOpenState = !_menuOpenState;
+                });
+              },
+            ),
           )
         ],
       ),

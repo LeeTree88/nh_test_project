@@ -67,10 +67,14 @@ class _homeState extends State<home> {
                   flex: 3,
                   //  margin: EdgeInsets.only(top: 37),
                   child: Center(
-                    child: Text('LOGO'),
-                    // Image(
-                    //     image: AssetImage('assets/logo.png'),
-                    //     fit: BoxFit.contain)
+                    child: /*Text('LOGO')*/
+                        SizedBox(
+                      width: 100,
+                      height: 40,
+                      child: Image(
+                          image: AssetImage('assets/logo.png'),
+                          fit: BoxFit.contain),
+                    ),
                   ),
                 ),
                 Expanded(
@@ -116,8 +120,8 @@ class _homeState extends State<home> {
                 activeIconPath: "assets/profile_selected.png",
                 iconPath: "assets/profile.png"),
             _buildBottomNavigationBarItem(
-                activeIconPath: "assets/heart_selected.png",
-                iconPath: "assets/heart.png"),
+                activeIconPath: "assets/market_selected.png",
+                iconPath: "assets/market.png"),
           ],
           currentIndex: _selectedIndex,
           onTap: (index) => _onItemTapped(index),
