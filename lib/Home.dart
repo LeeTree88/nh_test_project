@@ -45,18 +45,41 @@ class _homeState extends State<home> {
     );
   }
 
-  AppBar _my_appbar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+  Container _my_main_appbar() {
+    return Container(
+      color: HexColor('#ffffff'),
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('LOGO'),
-          // Image.asset(
-          //   'assets/logo.png',
-          //   fit: BoxFit.contain,
-          //   height: 32,
-          // ),
+          Container(
+            color: Colors.white,
+            padding: EdgeInsets.only(top: 35, bottom: 0),
+            child: Row(
+              //mainAxisAlignment: MainAxisAlignment.start,
+              //crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 1,
+                  // margin: EdgeInsets.only(left: 19, top: 33),
+                  child: Text(''),
+                ),
+                Expanded(
+                  flex: 3,
+                  //  margin: EdgeInsets.only(top: 37),
+                  child: Center(
+                    child: Text('LOGO'),
+                    // Image(
+                    //     image: AssetImage('assets/logo.png'),
+                    //     fit: BoxFit.contain)
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Center(),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -65,12 +88,15 @@ class _homeState extends State<home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
       home: Scaffold(
-        appBar: _selectedIndex != 3 ? _my_appbar() : null,
-        body: IndexedStack(index: _selectedIndex, children: _widgetOptions),
+        body: Column(
+          children: [
+            _selectedIndex == 0 ? _my_main_appbar() : Container(),
+            Expanded(
+                child: IndexedStack(
+                    index: _selectedIndex, children: _widgetOptions)),
+          ],
+        ),
         bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,

@@ -5,6 +5,7 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:nh_test_project/HexColor/HexColor.dart';
 import 'package:nh_test_project/Reg_Feed.dart';
 import 'package:nh_test_project/Reg_My_Feed.dart';
+import 'package:nh_test_project/follow.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class MypageTab extends StatefulWidget {
@@ -41,15 +42,22 @@ class _MypageTabState extends State<MypageTab>
           width: menuWidth,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              FlatButton(
-                onPressed: null,
-                child: Text(
-                  '설정',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
+              Container(
+                child: FlatButton(
+                  onPressed: () {
+                    print('설정');
+                  },
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '설정',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
                   ),
                 ),
               )
@@ -98,6 +106,8 @@ class _MypageTabState extends State<MypageTab>
                 delegate: SliverChildListDelegate(
                   [
                     _header(),
+                    _userName(),
+                    _profileComment(),
                   ],
                 ),
               ),
@@ -300,7 +310,16 @@ class _MypageTabState extends State<MypageTab>
                       child: _getStatusValue('473'),
                       onTap: () => _get_my_feed(),
                     ),
-                    _getStatusValue('8,000'),
+                    GestureDetector(
+                      child: _getStatusValue('8,000'),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => Follow(),
+                          ),
+                        );
+                      },
+                    ),
                     _getStatusValue('4.5만'),
                   ],
                 ),
@@ -310,7 +329,16 @@ class _MypageTabState extends State<MypageTab>
                       child: _getStatusLabel('게시물'),
                       onTap: () => _get_my_feed(),
                     ),
-                    _getStatusLabel('팔로워'),
+                    GestureDetector(
+                      child: _getStatusLabel('팔로워'),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => Follow(),
+                          ),
+                        );
+                      },
+                    ),
                     _getStatusLabel('팔로잉'),
                   ],
                 ),
@@ -318,6 +346,32 @@ class _MypageTabState extends State<MypageTab>
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Container _userName() {
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 14),
+        child: Text(
+          'userName',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  Container _profileComment() {
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 14),
+        child: Text(
+          '인스타그램 프로필 만드는중!!',
+          style: TextStyle(fontWeight: FontWeight.w400),
+        ),
       ),
     );
   }
@@ -359,7 +413,7 @@ class _MypageTabState extends State<MypageTab>
             child: Padding(
               padding: const EdgeInsets.only(left: 14),
               child: Text(
-                'LeeNamHo',
+                'NickName',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
