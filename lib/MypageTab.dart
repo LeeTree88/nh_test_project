@@ -6,6 +6,7 @@ import 'package:nh_test_project/HexColor/HexColor.dart';
 import 'package:nh_test_project/Reg_Feed.dart';
 import 'package:nh_test_project/Reg_My_Feed.dart';
 import 'package:nh_test_project/follow.dart';
+import 'package:nh_test_project/my_setting.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class MypageTab extends StatefulWidget {
@@ -28,6 +29,7 @@ class _MypageTabState extends State<MypageTab>
   AlignmentGeometry tabAlign = Alignment.centerLeft;
   late int onLoading = 0;
   int _tabState = 0;
+  late AnimationController _staggeredController;
 
   Widget _rightSideMenu() {
     return AnimatedContainer(
@@ -512,9 +514,14 @@ class _MypageTabState extends State<MypageTab>
             child: IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {
-                setState(() {
-                  _menuOpenState = !_menuOpenState;
-                });
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => My_setting(),
+                  ),
+                );
+                // setState(() {
+                //   _menuOpenState = !_menuOpenState;
+                // });
               },
             ),
           )

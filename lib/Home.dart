@@ -93,13 +93,27 @@ class _homeState extends State<home> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Column(
-          children: [
-            _selectedIndex == 0 ? _my_main_appbar() : Container(),
-            Expanded(
-                child: IndexedStack(
-                    index: _selectedIndex, children: _widgetOptions)),
-          ],
+        body: WillPopScope(
+          onWillPop: () async {
+            bool finish = false;
+
+            _selectedIndex == 0
+                ? finish = true
+                : setState(() {
+                    _selectedIndex = 0;
+                  });
+            print('finish = $finish');
+            print('selectedIndex = $_selectedIndex');
+            return finish;
+          },
+          child: Column(
+            children: [
+              _selectedIndex == 0 ? _my_main_appbar() : Container(),
+              Expanded(
+                  child: IndexedStack(
+                      index: _selectedIndex, children: _widgetOptions)),
+            ],
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           showSelectedLabels: false,

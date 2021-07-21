@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -175,13 +176,25 @@ class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
   Padding _feedCaption(BuildContext context, int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14),
-      child: RichText(
+      child:
+          // Column(
+          //   children: [
+          //     Container(
+          //       child: ExpandableText(
+          //         '$index 맛있어요!~~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~맛있어요!~~~~~~~~~~~~~~~~',
+          //         expandText: '더 보기',
+          //         collapseText: '닫기',
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          RichText(
         overflow: TextOverflow.ellipsis,
         text: TextSpan(
           style: DefaultTextStyle.of(context).style,
           children: <TextSpan>[
             TextSpan(
-              text: 'mybmeal $index',
+              text: 'mybmeal$index',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             TextSpan(text: '  '),
