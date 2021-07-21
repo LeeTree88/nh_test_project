@@ -1,13 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:nh_test_project/HexColor/HexColor.dart';
-import 'package:nh_test_project/Reg_Feed.dart';
+
 import 'package:nh_test_project/Reg_My_Feed.dart';
 import 'package:nh_test_project/follow.dart';
 import 'package:nh_test_project/my_setting.dart';
-import 'package:sticky_headers/sticky_headers.dart';
 
 class MypageTab extends StatefulWidget {
   const MypageTab({Key? key}) : super(key: key);

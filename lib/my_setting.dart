@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nh_test_project/HexColor/HexColor.dart';
+import 'package:nh_test_project/personal.dart';
 
 class My_setting extends StatefulWidget {
   const My_setting({Key? key}) : super(key: key);
@@ -9,6 +10,14 @@ class My_setting extends StatefulWidget {
 }
 
 class _My_settingState extends State<My_setting> {
+  void _my_settings_ontap(Widget page) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) => page,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -68,27 +77,69 @@ class _My_settingState extends State<My_setting> {
                 ),
               ),
             ),
+            GestureDetector(
+              onTap: () => _my_settings_ontap(Personal()),
+              child: Container(
+                padding: EdgeInsets.only(top: 35, left: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      '개인정보 처리 방침111',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () => _my_settings_ontap(Personal()),
+              child: Container(
+                padding: EdgeInsets.only(top: 35, left: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      '개인정보 처리 방침111',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Container(
+              padding: EdgeInsets.only(top: 35, left: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('개인정보 처리 방침'),
+                  Text(
+                    '개인정보 처리 방침111',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ],
               ),
             ),
             Container(
+              padding: EdgeInsets.only(top: 35, left: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('개인정보 처리 방침'),
+                  Text(
+                    '개인정보 처리 방침111',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ],
               ),
             ),
             Container(
+              padding: EdgeInsets.only(top: 35, left: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('개인정보 처리 방침'),
+                  Text(
+                    '개인정보 처리 방침111',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ],
               ),
             ),

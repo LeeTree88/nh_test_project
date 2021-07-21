@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:nh_test_project/HexColor/HexColor.dart';
 
 class Reg_Feed extends StatefulWidget {
   const Reg_Feed({Key? key}) : super(key: key);
